@@ -1,31 +1,41 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:ongkir_app/app/data/user_model.dart';
 
-import 'package:ongkir_app/main.dart';
+void main() async {
+  // http GET
+  /* Uri url = Uri.parse("https://reqres.in/api/users/2");
+  final response = await http.get(url);
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const GetMaterialApp());
+  //final data = (json.decode(response.body) as Map<String, dynamic>);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  // ambil model yang dibuat .from json karena akan membuat sebuah class dari json
+  // dibawah adalah step 1 memanggil model dari json nya
+  /* UserModel.fromJson(json.decode(response.body) as Map<String, dynamic>); */
+  // step selanjutnya kita bias memasang final datanya
+  final user =
+      UserModel.fromJson(json.decode(response.body) as Map<String, dynamic>);
+  // datanya sudah bisa diambil
+  print(user.data.firstName);
+  // data ini bisa di breakdown lagi berdasarkan modelnya dan merubah menajdi string
+  final dataUser = user.data;
+  final dataSupport = user.support;
+  // setelah di breakdown di atas bisa di ambil langsung string nya
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  print("${dataUser.firstName} ${dataUser.lastName}");
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+  // bila akan di balikan lagi dari array menjadi json bisa manfaatkan to.json
+  final userJson = userModelToJson(user);
+
+  print(userJson); */
+
+  // http POST
+  Uri url2 = Uri.parse("https://reqres.in/api/users");
+  final response2 = await http.post(
+    url2,
+    body: {"name": "morpheus", "job": "leader"},
+  );
+
+  print(response2.body);
 }
